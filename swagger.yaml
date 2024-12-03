@@ -10,7 +10,7 @@ externalDocs:
   url: swagger.json
   description: swagger.json
 servers:
-  - url: https://demo-09-db-integration-silk.vercel.app/
+  - url: https://prin-144-final-exam-steel.vercel.app//
     variables: {}
     description: production
 paths:
