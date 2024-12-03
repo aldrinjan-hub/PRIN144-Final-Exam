@@ -1,0 +1,276 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "PRIN144-Final-Exam: Aldrin Quitalig",
+      "version": "Version: 1.0",
+      "description": "DESCRIPTION",
+      "contact": {
+        "email": "aldrin_quitalig@yahoo.com",
+        "name": "Aldrin Jan B. Quitalig"
+      }
+    },
+    "externalDocs": {
+      "url": "swagger.json",
+      "description": "swagger.json"
+    },
+    "servers": [
+      {
+        "url": "https://demo-09-db-integration-silk.vercel.app/",
+        "variables": {},
+        "description": "production"
+      }
+    ],
+    "paths": {
+      "/songs": {
+        "get": {
+          "summary": "Returns all songs.",
+          "description": "Returns all songs in the database.",
+          "operationId": "getAllSongs",
+          "responses": {
+            "200": {
+              "description": "Songs found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/SongGetResponse"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "No songs found"
+            },
+            "default": {
+              "description": "Default error sample response"
+            }
+          },
+          "tags": [
+            "Songs"
+          ]
+        },
+        "post": {
+          "summary": "Creates a new song",
+          "description": "Creates a new song in the database.",
+          "operationId": "createSong",
+          "requestBody": {
+            "description": "Details of the song to be created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SongCreateRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Song created successfully"
+            },
+            "default": {
+              "description": "Default error sample response"
+            }
+          },
+          "tags": [
+            "Songs"
+          ]
+        }
+      },
+      "/songs/{id}": {
+        "get": {
+          "summary": "Returns a song by specified id.",
+          "description": "Returns a song by its unique ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The ID of the song.",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "operationId": "getSongById",
+          "responses": {
+            "200": {
+              "description": "Song found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SongGetResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Song not found"
+            }
+          },
+          "tags": [
+            "Songs"
+          ]
+        },
+        "put": {
+          "summary": "Updates a song by specified id.",
+          "description": "Updates the song details by its unique ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The ID of the song.",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "operationId": "updateSong",
+          "requestBody": {
+            "description": "Details to update the song.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SongUpdateRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Song updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SongGetResponse"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Song not found"
+            },
+            "default": {
+              "description": "Default error sample response"
+            }
+          },
+          "tags": [
+            "Songs"
+          ]
+        },
+        "delete": {
+          "summary": "Deletes a song by specified id.",
+          "description": "Deletes the song with the specified ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "The ID of the song.",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "operationId": "deleteSong",
+          "responses": {
+            "204": {
+              "description": "Song deleted successfully"
+            },
+            "404": {
+              "description": "Song not found"
+            }
+          },
+          "tags": [
+            "Songs"
+          ]
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "SongCreateRequest": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "The title of the song."
+            },
+            "genre": {
+              "type": "string",
+              "description": "The genre of the song."
+            },
+            "releaseYear": {
+              "type": "string",
+              "description": "The release year of the song."
+            },
+            "artist": {
+              "type": "string",
+              "description": "The artist of the song."
+            },
+            "likes": {
+              "type": "string",
+              "description": "The number of likes for the song."
+            }
+          }
+        },
+        "SongUpdateRequest": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "The title of the song."
+            },
+            "genre": {
+              "type": "string",
+              "description": "The genre of the song."
+            },
+            "releaseYear": {
+              "type": "string",
+              "description": "The release year of the song."
+            },
+            "artist": {
+              "type": "string",
+              "description": "The artist of the song."
+            },
+            "likes": {
+              "type": "string",
+              "description": "The number of likes for the song."
+            }
+          }
+        },
+        "SongGetResponse": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "The ID of the song."
+            },
+            "title": {
+              "type": "string",
+              "description": "The title of the song."
+            },
+            "genre": {
+              "type": "string",
+              "description": "The genre of the song."
+            },
+            "releaseYear": {
+              "type": "string",
+              "description": "The release year of the song."
+            },
+            "artist": {
+              "type": "string",
+              "description": "The artist of the song."
+            },
+            "likes": {
+              "type": "string",
+              "description": "The number of likes for the song."
+            }
+          }
+        }
+      }
+    }
+  }
+  

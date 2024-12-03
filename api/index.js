@@ -7,13 +7,23 @@ const fs = require('fs')
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yaml')
 
-app.use(express.json());
+const file  =  fs.readFileSync(process.cwd() + '/swagger.yaml', 'utf8')
+const swaggerDocument = YAML.parse(file)
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css"
 
-const PORT = 4000;
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+	customCss:
+		'.swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }',
+	customCssUrl: CSS_URL,
+}));
 
-app.listen(process.env.PORT || PORT, () => {
-    console.log(`Server is listening on port ${PORT}`)
-})
+// app.use(express.json());
+
+// const PORT = 4000;
+
+// app.listen(process.env.PORT || PORT, () => {
+//     console.log(`Server is listening on port ${PORT}`)
+// })
 
 // const songs = [{ id: 1, title: 'Treasure', genre: 'pop', releaseYear: '2024', artist:'Bruno Mars', likes: '999' }, {  id: 2, title: 'Daylight', genre: 'rap', releaseYear: '2023', artist:'Maroon 5', likes: '998'}];
 // let songId = songs.length;
